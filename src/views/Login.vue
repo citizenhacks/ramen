@@ -14,7 +14,7 @@
         >From here you’ll have easy access to all your account information, services and support</p>
       </div>
       <div class="login-footer item">
-        <a class="login-signup" href>
+        <a class="login-signup" @click="signup">
           Sign up now
           <font-awesome-icon icon="arrow-right" class="login-signup-icon"/>
         </a>
@@ -35,7 +35,11 @@ import LoginForm from "@/components/organisms/LoginForm.vue";
     LoginForm
   }
 })
-export default class Login extends Vue {}
+export default class Login extends Vue {
+  signup() {
+    this.$router.push("/signup");
+  }
+}
 </script>
 
 <style scoped>
