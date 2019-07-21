@@ -3,7 +3,7 @@
     <div class="signup-left-panel">
       <div class="item">
         <div class="logo-container">
-          <img class="signup-logo" src="../assets/logo_box.svg">
+          <img class="signup-logo" src="../assets/logo_box.svg" />
           <h1 class="logo-text">CH</h1>
         </div>
         <div class="step-container">
@@ -26,7 +26,13 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {}
 })
-export default class Signup extends Vue {}
+export default class RSVP extends Vue {
+  ID: string | (string | null)[] = "";
+
+  created() {
+    this.ID = this.$route.query.id;
+  }
+}
 </script>
 
 <style scoped>
