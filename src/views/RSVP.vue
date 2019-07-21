@@ -31,6 +31,20 @@ export default class RSVP extends Vue {
 
   created() {
     this.ID = this.$route.query.id;
+    if (this.ID) {
+      this.processID();
+    }
+  }
+
+  processID() {
+    this.axios
+      .get(`https://api.citizenhacks.com/application/status/${this.ID}`)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 }
 </script>
