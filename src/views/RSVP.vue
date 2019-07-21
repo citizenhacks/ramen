@@ -1,8 +1,13 @@
 <template>
   <div class="rsvp-container">
     <div class="rsvp-item">b</div>
-    <div class="rsvp-item">{{message}}</div>
-    <div class="rsvp-item">b</div>
+    <div class="rsvp-item">
+      <div v-if="rsvpSubmitted">Already RSVP'd</div>
+      <div v-else-if="isAccepted">Accepted</div>
+    </div>
+    <div class="rsvp-item">
+      <FileUpload />
+    </div>
   </div>
 </template>
 
@@ -11,13 +16,14 @@ import Vue from "vue";
 import { State, Action, Getter, Mutation } from "vuex-class";
 import Component from "vue-class-component";
 import { ProfileState, User } from "../store/profile/types";
-
+import FileUpload from "@/components/molecules/FileUpload.vue";
 const namespace: string = "profile";
 
 @Component({
-  components: {}
+  components: {
+    FileUpload
+  }
 })
-@Component
 export default class RSVP extends Vue {
   @State("profile") profile!: ProfileState;
   @Action("initWithId", { namespace }) initWithId: any;
@@ -32,6 +38,7 @@ export default class RSVP extends Vue {
     isAccepted: false,
     rsvpSubmitted: false
   };
+  uploading: boolean = true;
 
   mounted() {
     this.id = this.$route.query.id;
@@ -48,13 +55,14 @@ export default class RSVP extends Vue {
       .then(res => {
         LOADER.hide();
         this.status = res.data;
-        console.log(this.status.isAccepted);
       })
       .catch(e => {
         console.log(e);
         this.message = "Unfortunate message.";
       });
   }
+
+  async onFilesUploaded() {}
 
   get email() {
     const user = this.profile && this.profile.user;
@@ -77,6 +85,10 @@ export default class RSVP extends Vue {
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+  height: 100vh;
+}
+.rsvp-item {
+  width: 100%;
   height: 100vh;
 }
 </style>
