@@ -27,17 +27,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import LoginForm from "@/components/organisms/LoginForm.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import LoginForm from '@/components/organisms/LoginForm.vue';
 
 @Component({
   components: {
-    LoginForm
-  }
+    LoginForm,
+  },
 })
 export default class Login extends Vue {
   signup() {
-    this.$router.push("/signup");
+    this.$router.push('/signup');
   }
 }
 </script>

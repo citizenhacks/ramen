@@ -46,22 +46,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component({})
 export default class LoginForm extends Vue {
   isError: boolean = false;
 
-  email: string = "";
+  email: string = '';
 
-  password: string = "";
+  password: string = '';
 
   isRemember: boolean = false;
 
   submit() {
-    this.isError = this.email !== "test@gmail.com" || this.password !== "test";
+    this.isError = this.email !== 'test@gmail.com' || this.password !== 'test';
     if (!this.isError) {
-      this.$router.push("/dashboard");
+      this.$router.push('/dashboard');
     }
   }
 

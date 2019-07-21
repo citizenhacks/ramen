@@ -11,7 +11,7 @@
             <a>Step 1</a>
           </div>
           <div class="step">
-            <a>Step 2</a>
+            <a>{{ email }}</a>
           </div>
         </div>
       </div>
@@ -21,30 +21,46 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import Vue from "vue";
+import { State, Action, Getter, Mutation } from "vuex-class";
+import Component from "vue-class-component";
+import { ProfileState, User } from "../store/profile/types";
+
+const namespace: string = "profile";
 
 @Component({
   components: {}
 })
+@Component
 export default class RSVP extends Vue {
-  ID: string | (string | null)[] = "";
+  @State("profile") profile!: ProfileState;
+  @Action("initWithId", { namespace }) initWithId: any;
+  @Getter("fullName", { namespace }) fullName!: string;
 
-  created() {
-    this.ID = this.$route.query.id;
-    if (this.ID) {
+  id: string | (string | null)[] = "";
+
+  mounted() {
+    this.id = this.$route.query.id;
+    if (this.id) {
       this.processID();
     }
   }
 
   processID() {
     this.axios
-      .get(`https://api.citizenhacks.com/application/status/${this.ID}`)
+      .get(`https://api.citizenhacks.com/application/status/${this.id}`)
       .then(res => {
         console.log(res);
+        this.initWithId(this.id);
       })
       .catch(e => {
         console.log(e);
       });
+  }
+
+  get email() {
+    const user = this.profile && this.profile.user;
+    return (user && user.id) || "";
   }
 }
 </script>
